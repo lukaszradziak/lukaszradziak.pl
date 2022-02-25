@@ -1,6 +1,26 @@
 import Head from "next/head";
+import { request } from "@/lib/datocms";
 
-export default function Home() {
+export async function getStaticProps() {
+  const data = await request({
+    query: `
+      {
+        allPosts {
+          id
+          title
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export default function Home({ data }) {
   return (
     <div>
       <Head>
@@ -10,8 +30,8 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="text-3xl font-bold">Welcome in Portfolio!</h1>
-        <p>Example content...</p>
+        <h1 className="text-3xl font-bold">Hello DatoCMS!</h1>
+        <pre>{JSON.stringify(data, " ", 2)}</pre>
       </main>
     </div>
   );
