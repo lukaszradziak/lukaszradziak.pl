@@ -6,6 +6,6 @@ module.exports = {
     NEXT_DATOCMS_API_TOKEN: process.env.NEXT_DATOCMS_API_TOKEN,
   },
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ["www.datocms-assets.com"],
   },
 };
