@@ -1,17 +1,9 @@
 import Layout from "@/components/layout";
-import { useState } from "react";
-import { Switch } from "@headlessui/react";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Contact() {
-  const [agreed, setAgreed] = useState(false);
-
   return (
     <Layout>
-      <div className="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
+      <div className="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-12">
         <div className="relative max-w-xl mx-auto">
           <svg
             className="absolute left-full transform translate-x-1/2"
@@ -84,8 +76,7 @@ export default function Contact() {
               Contact
             </h2>
             <p className="mt-4 text-lg leading-6 text-gray-500">
-              Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat
-              massa dictumst amet. Sapien tortor lacus arcu.
+              Send me a message, I will reply as soon as possible.
             </p>
           </div>
           <div className="mt-12">
@@ -94,54 +85,21 @@ export default function Contact() {
               method="POST"
               className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
             >
-              <div>
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  First name
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    name="first-name"
-                    id="first-name"
-                    autoComplete="given-name"
-                    className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                  />
-                </div>
-              </div>
-              <div>
-                <label
-                  htmlFor="last-name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Last name
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    name="last-name"
-                    id="last-name"
-                    autoComplete="family-name"
-                    className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                  />
-                </div>
-              </div>
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="company"
+                  htmlFor="name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Company
+                  Name
                 </label>
                 <div className="mt-1">
                   <input
                     type="text"
-                    name="company"
-                    id="company"
-                    autoComplete="organization"
+                    name="name"
+                    id="name"
+                    autoComplete="name"
                     className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                    required
                   />
                 </div>
               </div>
@@ -159,38 +117,7 @@ export default function Contact() {
                     type="email"
                     autoComplete="email"
                     className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="phone-number"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Phone Number
-                </label>
-                <div className="mt-1 relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 flex items-center">
-                    <label htmlFor="country" className="sr-only">
-                      Country
-                    </label>
-                    <select
-                      id="country"
-                      name="country"
-                      className="h-full py-0 pl-4 pr-8 border-transparent bg-transparent text-gray-500 focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
-                    >
-                      <option>US</option>
-                      <option>CA</option>
-                      <option>EU</option>
-                    </select>
-                  </div>
-                  <input
-                    type="text"
-                    name="phone-number"
-                    id="phone-number"
-                    autoComplete="tel"
-                    className="py-3 px-4 block w-full pl-20 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                    placeholder="+1 (555) 987-6543"
+                    required
                   />
                 </div>
               </div>
@@ -208,51 +135,11 @@ export default function Contact() {
                     rows={4}
                     className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md"
                     defaultValue={""}
+                    required
                   />
                 </div>
               </div>
-              <div className="sm:col-span-2">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Switch
-                      checked={agreed}
-                      onChange={setAgreed}
-                      className={classNames(
-                        agreed ? "bg-indigo-600" : "bg-gray-200",
-                        "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      )}
-                    >
-                      <span className="sr-only">Agree to policies</span>
-                      <span
-                        aria-hidden="true"
-                        className={classNames(
-                          agreed ? "translate-x-5" : "translate-x-0",
-                          "inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
-                        )}
-                      />
-                    </Switch>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-base text-gray-500">
-                      By selecting this, you agree to the{" "}
-                      <a
-                        href="#"
-                        className="font-medium text-gray-700 underline"
-                      >
-                        Privacy Policy
-                      </a>{" "}
-                      and{" "}
-                      <a
-                        href="#"
-                        className="font-medium text-gray-700 underline"
-                      >
-                        Cookie Policy
-                      </a>
-                      .
-                    </p>
-                  </div>
-                </div>
-              </div>
+
               <div className="sm:col-span-2">
                 <button
                   type="submit"

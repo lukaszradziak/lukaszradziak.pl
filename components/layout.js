@@ -57,7 +57,7 @@ const footerNavigation = {
 
 export default function Layout({ children }) {
   return (
-    <div className="bg-white">
+    <div className="bg-gray-100 min-h-screen">
       <header>
         <Popover className="relative bg-white">
           <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
