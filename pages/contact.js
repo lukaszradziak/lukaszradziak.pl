@@ -1,8 +1,28 @@
 import Layout from "@/components/layout";
+import { request } from "@/lib/datocms";
 
-export default function Contact() {
+export async function getStaticProps() {
+  const data = await request({
+    query: `
+      {
+        setting {
+          title
+          shortTitle
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export default function Contact({ data }) {
   return (
-    <Layout>
+    <Layout data={data}>
       <div className="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-12">
         <div className="relative max-w-xl mx-auto">
           <svg

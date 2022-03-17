@@ -4,11 +4,6 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { MoonIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 
-const appConfig = {
-  name: `App`,
-  shortName: `A`,
-};
-
 const headerNavigation = [
   {
     name: "Home",
@@ -55,7 +50,7 @@ const footerNavigation = {
   ],
 };
 
-export default function Layout({ children }) {
+export default function Layout({ children, data }) {
   return (
     <div className="bg-gray-100 min-h-screen">
       <header>
@@ -64,7 +59,7 @@ export default function Layout({ children }) {
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link href="/" passHref>
                 <a className="text-4xl font-extrabold tracking-tight">
-                  {appConfig.shortName}
+                  {data.setting.shortTitle}
                 </a>
               </Link>
             </div>
@@ -110,7 +105,7 @@ export default function Layout({ children }) {
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-4xl font-extrabold tracking-tight">
-                        {appConfig.name}
+                        {data.setting.title}
                       </span>
                     </div>
                     <div className="-mr-2">
@@ -161,7 +156,7 @@ export default function Layout({ children }) {
               ))}
             </div>
             <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-              &copy; {new Date().getFullYear()} {appConfig.name}
+              &copy; {new Date().getFullYear()} {data.setting.title}
             </p>
           </div>
         </div>

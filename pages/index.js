@@ -1,10 +1,30 @@
 import Link from "next/link";
 import Layout from "@/components/layout";
 import { CubeTransparentIcon } from "@heroicons/react/solid";
+import { request } from "@/lib/datocms";
 
-export default function Home() {
+export async function getStaticProps() {
+  const data = await request({
+    query: `
+      {
+        setting {
+          title
+          shortTitle
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export default function Home({ data }) {
   return (
-    <Layout>
+    <Layout data={data}>
       <div className="relative bg-white">
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100" />
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -15,15 +35,18 @@ export default function Home() {
             </div>
             <div className="relative px-4 py-16 sm:px-6 sm:py-20 lg:py-28 lg:px-8">
               <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                <span className="block text-white">APP</span>
-                <span className="block text-indigo-200">Lorem ipsum dolor</span>
+                <span className="block text-white">Łukasz Radziak</span>
+                <span className="block text-indigo-200">
+                  Fullstack devloper
+                </span>
               </h1>
               <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-                fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt
-                sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                fugiat veniam occaecat fugiat aliqua.
+                My goal is to develop my skills into a Full-stack Developer. I
+                like to take on new challenges and expand my own knowledge of
+                webdev. I’m currently working on{" "}
+                <a href="https://desk3d.pl" target="_blank" rel="noreferrer">
+                  Desk3D
+                </a>
               </p>
               <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                 <Link href="/contact" passHref>
