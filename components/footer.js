@@ -31,7 +31,10 @@ const footerNavigation = {
 
 export default function Footer({ setting }) {
   return (
-    <footer className="bg-gray-50" aria-labelledby="footer-heading">
+    <footer
+      className="bg-gray-50 dark:bg-gray-800"
+      aria-labelledby="footer-heading"
+    >
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>

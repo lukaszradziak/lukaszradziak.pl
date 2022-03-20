@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { MoonIcon } from "@heroicons/react/solid";
+import { MoonIcon, SunIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 
 const headerNavigation = [
@@ -19,20 +19,20 @@ const headerNavigation = [
   },
 ];
 
-export default function Header({ setting }) {
+export default function Header({ setting, darkMode, setDarkMode }) {
   return (
     <header>
-      <Popover className="relative bg-white">
+      <Popover className="relative bg-white dark:bg-gray-900 ">
         <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link href="/" passHref>
-              <a className="text-4xl font-extrabold tracking-tight">
+              <a className="text-4xl font-extrabold tracking-tight dark:text-white">
                 {setting.shortTitle}
               </a>
             </Link>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
-            <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span className="sr-only">Open menu</span>
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
@@ -42,16 +42,20 @@ export default function Header({ setting }) {
               <a
                 key={index}
                 href={item.href}
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
+                className="text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-300"
               >
                 {item.name}
               </a>
             ))}
           </Popover.Group>
-          <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a href="#">
-              <MoonIcon className="h-6 w-6" />
-            </a>
+          <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 dark:text-white">
+            <button onClick={() => setDarkMode(!darkMode)}>
+              {darkMode ? (
+                <SunIcon className="h-6 w-6" />
+              ) : (
+                <MoonIcon className="h-6 w-6" />
+              )}
+            </button>
           </div>
         </div>
 
@@ -90,7 +94,7 @@ export default function Header({ setting }) {
                     <Link
                       key={index}
                       href={item.href}
-                      className="text-base font-medium text-gray-900 hover:text-gray-700"
+                      className="text-base font-medium text-gray-900 hover:text-gray-700 "
                     >
                       {item.name}
                     </Link>

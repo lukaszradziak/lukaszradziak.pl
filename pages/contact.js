@@ -62,7 +62,7 @@ export default function Contact({ data }) {
 
   return (
     <Layout data={data}>
-      <div className="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-12">
+      <div className="bg-white dark:bg-gray-900 py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-12">
         <div className="relative max-w-xl mx-auto">
           <Dots />
           <Title
@@ -78,7 +78,7 @@ export default function Contact({ data }) {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Name
                 </label>
@@ -96,7 +96,7 @@ export default function Contact({ data }) {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Email
                 </label>
@@ -114,7 +114,7 @@ export default function Contact({ data }) {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Message
                 </label>

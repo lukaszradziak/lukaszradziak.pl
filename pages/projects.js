@@ -37,7 +37,7 @@ export async function getStaticProps() {
 export default function Projects({ data }) {
   return (
     <Layout data={data}>
-      <div className="relative bg-white pt-16 pb-20 px-4 sm:px-6 lg:pt-12 lg:pb-28 lg:px-8">
+      <div className="relative bg-white pt-16 pb-20 px-4 sm:px-6 lg:pt-12 lg:pb-28 lg:px-8 dark:bg-gray-900">
         <div className="relative max-w-7xl mx-auto">
           <Title title="Projects" subtitle="My recent public projects." />
           <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">

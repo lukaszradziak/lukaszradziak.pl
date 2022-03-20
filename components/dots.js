@@ -23,7 +23,7 @@ export default function Dots({ data }) {
               y={0}
               width={4}
               height={4}
-              className="text-gray-200"
+              className="text-gray-200 dark:text-gray-700"
               fill="currentColor"
             />
           </pattern>
@@ -56,7 +56,7 @@ export default function Dots({ data }) {
               y={0}
               width={4}
               height={4}
-              className="text-gray-200"
+              className="text-gray-200 dark:text-gray-700"
               fill="currentColor"
             />
           </pattern>

@@ -1,12 +1,22 @@
+import { useState } from "react";
+
 import Footer from "./footer";
 import Header from "./header";
 
 export default function Layout({ children, data }) {
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <Header setting={data.setting} />
-      <main>{children}</main>
-      <Footer setting={data.setting} />
+    <div className={darkMode ? `dark` : ``}>
+      <div className={`min-h-screen dark:bg-gray-800`}>
+        <Header
+          setting={data.setting}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        />
+        <main>{children}</main>
+        <Footer setting={data.setting} />
+      </div>
     </div>
   );
 }

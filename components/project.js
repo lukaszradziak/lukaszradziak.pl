@@ -15,7 +15,7 @@ export default function Project({ data }) {
           />
         ) : null}
       </div>
-      <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+      <div className="flex-1 bg-white dark:bg-gray-800 p-6 flex flex-col justify-between">
         <div className="flex-1">
           <a
             href={data.url}
@@ -23,7 +23,9 @@ export default function Project({ data }) {
             rel="noreferrer"
             className="block mt-2"
           >
-            <p className="text-xl font-semibold text-gray-900">{data.title}</p>
+            <p className="text-xl font-semibold text-gray-900 dark:text-white">
+              {data.title}
+            </p>
             <p className="mt-3 text-base text-gray-500">{data.description}</p>
           </a>
         </div>
