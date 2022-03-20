@@ -1,13 +1,13 @@
-import { useState } from "react";
+import useLocalStorage from "hooks/useLocalStorage";
 
 import Footer from "./footer";
 import Header from "./header";
 
 export default function Layout({ children, data }) {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useLocalStorage(`theme`, `light`);
 
   return (
-    <div className={darkMode ? `dark` : ``}>
+    <div className={darkMode === `dark` ? `dark` : ``}>
       <div className={`min-h-screen dark:bg-gray-800`}>
         <Header
           setting={data.setting}

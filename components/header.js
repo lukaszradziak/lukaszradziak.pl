@@ -49,7 +49,11 @@ export default function Header({ setting, darkMode, setDarkMode }) {
             ))}
           </Popover.Group>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 dark:text-white">
-            <button onClick={() => setDarkMode(!darkMode)}>
+            <button
+              onClick={() =>
+                setDarkMode(darkMode === `dark` ? `light` : `dark`)
+              }
+            >
               {darkMode ? (
                 <SunIcon className="h-6 w-6" />
               ) : (
