@@ -1,7 +1,11 @@
+import { useRef, useState } from "react";
+import { request } from "@/lib/datocms";
+import ReCAPTCHA from "react-google-recaptcha";
+
 import Title from "@/components/title";
 import Layout from "@/components/layout";
-import { request } from "@/lib/datocms";
 import Dots from "@/components/dots";
+import Spinner from "@/components/spinner";
 
 export async function getStaticProps() {
   const data = await request({
@@ -23,6 +27,39 @@ export async function getStaticProps() {
 }
 
 export default function Contact({ data }) {
+  const [disabled, setDisabled] = useState(false);
+  const recaptchaRef = useRef();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setDisabled(true);
+
+    const post = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      message: e.target.message.value,
+      captcha: recaptchaRef.current.getValue(),
+    };
+
+    if (Object.values(post).findIndex((value) => !value) !== -1) {
+      setDisabled(false);
+      return;
+    }
+
+    const response = await fetch(`/api/contact`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+    await response.json();
+
+    e.target.reset();
+    recaptchaRef.current.reset();
+    setDisabled(false);
+  };
+
   return (
     <Layout data={data}>
       <div className="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-12">
@@ -34,7 +71,7 @@ export default function Contact({ data }) {
           />
           <div className="mt-12">
             <form
-              action="#"
+              onSubmit={onSubmit}
               method="POST"
               className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
             >
@@ -93,12 +130,20 @@ export default function Contact({ data }) {
                 </div>
               </div>
 
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              />
+
               <div className="sm:col-span-2">
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  disabled={disabled}
+                  className={`${
+                    disabled ? `opacity-60` : null
+                  } w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 >
-                  Submit
+                  {disabled ? <Spinner /> : `Submit`}
                 </button>
               </div>
             </form>
