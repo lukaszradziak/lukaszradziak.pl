@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import useWindowWidth from "hooks/useWindowWidth";
 
 import {
@@ -14,15 +14,19 @@ import {
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap, { Power1 } from "gsap";
+import Spinner from "./spinner";
 
 export default function Macbook() {
   const element = useRef(null);
   const width = useWindowWidth();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let renderer;
 
     const load = async () => {
+      setLoading(true);
+
       const isWide = window.innerWidth > 1050;
 
       const height = element.current.offsetHeight;
@@ -71,12 +75,14 @@ export default function Macbook() {
       scene.add(light2);
 
       const loader = new GLTFLoader();
-      const gltf = await loader.loadAsync("/model/scene.gltf");
+      const gltf = await loader.loadAsync(
+        "https://static.lukaszradziak.pl/macbook3d/scene.gltf"
+      );
       const macbook = gltf.scene;
 
       const textureLoader = new TextureLoader();
       const texture = await textureLoader.loadAsync(
-        `/model/textures/desk3d.png`
+        `https://static.lukaszradziak.pl/macbook3d/textures/desk3d.png`
       );
       const display = macbook.getObjectByName("abgVijaHVNRUvcc");
       display.material = new MeshPhongMaterial({
@@ -99,6 +105,8 @@ export default function Macbook() {
         duration: 0.8,
         ease: Power1.easeOut,
       });
+
+      setLoading(false);
     };
     load();
 
@@ -109,6 +117,9 @@ export default function Macbook() {
   return (
     <>
       <div ref={element} className="w-full h-full"></div>
+      {loading ? (
+        <Spinner className="absolute right-2 top-2 w-10 h-10 z-50" />
+      ) : null}
     </>
   );
 }
