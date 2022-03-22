@@ -8,24 +8,32 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/fiber": "^7.0.26",
+    "gsap": "^3.9.1",
     "next": "12.1.00",
     "node-fetch": "^3.2.3",
     "nodemailer": "^6.7.2",
     "react": "17.0.2",
     "react-datocms": "^3.0.8",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "three": "^0.138.3"
   },
   "devDependencies": {
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
+    "@react-three/drei": "^8.18.5",
     "@tailwindcss/forms": "^0.5.0",
     "autoprefixer": "^10.4.2",
     "dotenv": "^16.0.0",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.00",
+    "eslint-config-prettier": "^8.5.0",
     "graphql-request": "^4.0.0",
+    "lodash": "^4.17.21",
+    "next-transpile-modules": "^9.0.0",
     "postcss": "^8.4.6",
     "react-google-recaptcha": "^2.1.0",
+    "react-use-refs": "^1.0.1",
     "tailwindcss": "^3.0.23"
   }
 }
