@@ -8,7 +8,7 @@ export default function Layout({ children, data }) {
 
   return (
     <div className={darkMode === `dark` ? `dark` : ``}>
-      <div className={`min-h-screen dark:bg-gray-800`}>
+      <div className={`min-h-screen bg-gray-50 dark:bg-gray-800`}>
         <Header
           setting={data.setting}
           darkMode={darkMode}
