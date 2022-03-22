@@ -4,6 +4,7 @@ import Image from "next/image";
 import { request } from "@/lib/datocms";
 import { CubeTransparentIcon } from "@heroicons/react/solid";
 import Macbook from "@/components/macbook";
+import * as SimpleIcons from "react-icons/si";
 
 export async function getStaticProps() {
   const data = await request({
@@ -12,6 +13,11 @@ export async function getStaticProps() {
         setting {
           title
           shortTitle
+        }
+        allBrands(orderBy: position_ASC) {
+          id
+          title
+          iconName
         }
       }
     `,
@@ -90,21 +96,20 @@ export default function Home({ data }) {
       <div className="bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
-            <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-              <CubeTransparentIcon className="h-12" fill="gray" />
-            </div>
-            <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-              <CubeTransparentIcon className="h-12" fill="gray" />
-            </div>
-            <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-              <CubeTransparentIcon className="h-12" fill="gray" />
-            </div>
-            <div className="col-span-1 flex justify-center md:col-span-2 md:col-start-2 lg:col-span-1">
-              <CubeTransparentIcon className="h-12" fill="gray" />
-            </div>
-            <div className="col-span-2 flex justify-center md:col-span-2 md:col-start-4 lg:col-span-1">
-              <CubeTransparentIcon className="h-12" fill="gray" />
-            </div>
+            {data.allBrands.map((brand) => {
+              const BrandComponent = SimpleIcons[brand.iconName];
+              return (
+                <div
+                  key={brand.id}
+                  className="col-span-1 flex flex-col justify-center items-center gap-2 md:col-span-2 lg:col-span-1"
+                >
+                  <BrandComponent className="w-12 h-12 dark:text-white" />
+                  <span className="font-medium text-xl dark:text-white">
+                    {brand.title}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
