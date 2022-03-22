@@ -1,4 +1,5 @@
 import Image from "next/image";
+import * as SimpleIcons from "react-icons/si";
 
 export default function Project({ data }) {
   return (
@@ -16,7 +17,7 @@ export default function Project({ data }) {
         ) : null}
       </div>
       <div className="flex-1 bg-white dark:bg-gray-800 p-6 flex flex-col justify-between">
-        <div className="flex-1">
+        <div className="flex flex-col flex-1 justify-between">
           <a
             href={data.url}
             target="_blank"
@@ -28,6 +29,18 @@ export default function Project({ data }) {
             </p>
             <p className="mt-3 text-base text-gray-500">{data.description}</p>
           </a>
+          <div className="grid grid-cols-2">
+            {data.brand.map((brand) => {
+              const BrandComponent = SimpleIcons[brand.iconName];
+
+              return (
+                <div key={brand.id} className="flex items-center gap-2 py-4">
+                  <BrandComponent className="h-8 w-8" />{" "}
+                  <span className="font-medium">{brand.title}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

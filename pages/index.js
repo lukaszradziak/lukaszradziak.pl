@@ -2,7 +2,6 @@ import Link from "next/link";
 import Layout from "@/components/layout";
 import Image from "next/image";
 import { request } from "@/lib/datocms";
-import { CubeTransparentIcon } from "@heroicons/react/solid";
 import Macbook from "@/components/macbook";
 import * as SimpleIcons from "react-icons/si";
 

@@ -17,6 +17,11 @@ export async function getStaticProps() {
           }
           url
           urlType
+          brand {
+            id
+            title
+            iconName
+          }
         }
 
         setting {
