@@ -35,8 +35,10 @@ export default function Project({ data }) {
 
               return (
                 <div key={brand.id} className="flex items-center gap-2 py-4">
-                  <BrandComponent className="h-8 w-8" />{" "}
-                  <span className="font-medium">{brand.title}</span>
+                  <BrandComponent className="h-8 w-8 dark:text-white" />{" "}
+                  <span className="font-medium dark:text-white">
+                    {brand.title}
+                  </span>
                 </div>
               );
             })}
