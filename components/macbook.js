@@ -29,14 +29,14 @@ export default function Macbook() {
 
       const isWide = window.innerWidth > 1050;
 
-      const height = element.current.offsetHeight;
+      const height = element.current.offsetHeight * (isWide ? 1 : 1.55);
       const width = element.current.offsetWidth * (isWide ? 1.4 : 1);
 
       const scene = new Scene();
       scene.position.y = -0.5;
 
       const camera = new PerspectiveCamera(
-        isWide ? 35 : 44,
+        isWide ? 35 : 55,
         width / height,
         0.1,
         1000
@@ -45,9 +45,8 @@ export default function Macbook() {
       camera.position.z = 3;
 
       if (!isWide) {
-        scene.position.y = -2.1;
-        camera.position.y = 2.5;
-        camera.position.z = 4.5;
+        camera.position.y = 4.5;
+        camera.position.z = 6.5;
       }
 
       renderer = new WebGLRenderer({
