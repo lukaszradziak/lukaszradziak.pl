@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 
 import { request } from "@/lib/datocms";
 import icons from "@/lib/icons";
+import { Suspense } from "react";
 const Macbook = dynamic(() => import("@/components/macbook"));
 
 export async function getStaticProps() {
@@ -45,7 +46,11 @@ export default function Home({ data }) {
             </div>
             <div className="relative px-4 sm:px-6 lg:px-8">
               <div className="absolute w-full h-full left-0 top-0 z-10 overflow-hidden">
-                <Macbook />
+                {typeof window === `object` ? (
+                  <Suspense fallback={null}>
+                    <Macbook />
+                  </Suspense>
+                ) : null}
               </div>
               <div className="block lg:grid grid-cols-2">
                 <div className="relative z-20 py-8 md:py-16">

@@ -12,6 +12,7 @@ import {
   AmbientLight,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap, { Power1 } from "gsap";
 import Spinner from "./spinner";
@@ -74,8 +75,14 @@ export default function Macbook() {
       scene.add(light2);
 
       const loader = new GLTFLoader();
+
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderConfig({ type: "js" });
+      dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
+      loader.setDRACOLoader(dracoLoader);
+
       const gltf = await loader.loadAsync(
-        "https://static.lukaszradziak.pl/macbook3d/scene.gltf"
+        "https://static.lukaszradziak.pl/macbook3d/compress.gltf"
       );
       const macbook = gltf.scene;
 
