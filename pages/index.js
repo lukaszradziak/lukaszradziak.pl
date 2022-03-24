@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 import { request } from "@/lib/datocms";
 import icons from "@/lib/icons";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 const Macbook = dynamic(() => import("@/components/macbook"));
 
 export async function getStaticProps() {
@@ -33,12 +33,6 @@ export async function getStaticProps() {
 }
 
 export default function Home({ data }) {
-  const [isMounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <Layout data={data}>
       <div className="relative bg-white dark:bg-gray-900">
@@ -52,10 +46,7 @@ export default function Home({ data }) {
             </div>
             <div className="relative px-4 sm:px-6 lg:px-8">
               <div className="absolute w-full h-full left-0 top-0 z-10 overflow-hidden">
-                {typeof window !== `object` ||
-                !isMounted ||
-                navigator?.connection?.saveData ||
-                !matchMedia("(min-width: 768px)").matches ? null : (
+                {typeof window !== `object` ? null : (
                   <Suspense fallback={null}>
                     <Macbook />
                   </Suspense>
