@@ -78,17 +78,15 @@ export default function Macbook() {
 
       const dracoLoader = new DRACOLoader();
       dracoLoader.setDecoderConfig({ type: "js" });
-      dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
+      dracoLoader.setDecoderPath("/model/draco/");
       loader.setDRACOLoader(dracoLoader);
 
-      const gltf = await loader.loadAsync(
-        "https://static.lukaszradziak.pl/macbook3d/compress.gltf"
-      );
+      const gltf = await loader.loadAsync("/model/compress.gltf");
       const macbook = gltf.scene;
 
       const textureLoader = new TextureLoader();
       const texture = await textureLoader.loadAsync(
-        `https://static.lukaszradziak.pl/macbook3d/textures/desk3d.png`
+        `/model/textures/display.jpg`
       );
       const display = macbook.getObjectByName("abgVijaHVNRUvcc");
       display.material = new MeshPhongMaterial({
