@@ -1,9 +1,11 @@
 import Link from "next/link";
-import Layout from "@/components/layout";
 import Image from "next/image";
+import Layout from "@/components/layout";
+import dynamic from "next/dynamic";
+
 import { request } from "@/lib/datocms";
-import Macbook from "@/components/macbook";
-import * as SimpleIcons from "react-icons/si";
+import icons from "@/lib/icons";
+const Macbook = dynamic(() => import("@/components/macbook"));
 
 export async function getStaticProps() {
   const data = await request({
@@ -96,7 +98,8 @@ export default function Home({ data }) {
         <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
             {data.allBrands.map((brand) => {
-              const BrandComponent = SimpleIcons[brand.iconName];
+              const BrandComponent = icons[brand.iconName] || icons.Laravel;
+
               return (
                 <div
                   key={brand.id}

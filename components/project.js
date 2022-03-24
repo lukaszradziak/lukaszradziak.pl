@@ -1,5 +1,5 @@
 import Image from "next/image";
-import * as SimpleIcons from "react-icons/si";
+import icons from "@/lib/icons";
 
 export default function Project({ data }) {
   return (
@@ -31,7 +31,7 @@ export default function Project({ data }) {
           </a>
           <div className="grid grid-cols-2">
             {data.brand.map((brand) => {
-              const BrandComponent = SimpleIcons[brand.iconName];
+              const BrandComponent = icons[brand.iconName] || icons.Laravel;
 
               return (
                 <div key={brand.id} className="flex items-center gap-2 py-4">
