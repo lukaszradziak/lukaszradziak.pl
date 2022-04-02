@@ -110,7 +110,7 @@ export default function Home({ data }) {
                   key={brand.id}
                   className="col-span-1 flex flex-col justify-center items-center gap-2 md:col-span-2 lg:col-span-1"
                 >
-                  <BrandComponent className="w-12 h-12 dark:text-white" />
+                  <BrandComponent className="w-12 h-12 fill-current dark:text-white" />
                   <span className="font-medium text-xl dark:text-white">
                     {brand.title}
                   </span>
