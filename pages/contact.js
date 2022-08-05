@@ -74,8 +74,6 @@ export default function Contact({ data }) {
       <div className="bg-white dark:bg-gray-900 py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-12">
         <div className="relative max-w-xl mx-auto">
           <Dots />
-          {error ? <Alert type="error">{error}</Alert> : null}
-          {success ? <Alert>{success}</Alert> : null}
           <Title
             title="Contact"
             subtitle="Send me a message, I will reply as soon as possible."
@@ -159,6 +157,9 @@ export default function Contact({ data }) {
                   {disabled ? <Spinner /> : `Submit`}
                 </button>
               </div>
+
+              {error ? <Alert type="error">{error}</Alert> : null}
+              {success ? <Alert>{success}</Alert> : null}
             </form>
           </div>
         </div>
