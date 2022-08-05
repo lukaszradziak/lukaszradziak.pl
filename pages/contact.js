@@ -5,6 +5,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import Title from "@/components/title";
 import Layout from "@/components/layout";
 import Dots from "@/components/dots";
+import Alert from "@/components/alert";
 import Spinner from "@/components/spinner";
 
 export async function getStaticProps() {
@@ -28,35 +29,43 @@ export async function getStaticProps() {
 
 export default function Contact({ data }) {
   const [disabled, setDisabled] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const recaptchaRef = useRef();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setDisabled(true);
+    setError('');
+    setSuccess('');
 
     const post = {
       name: e.target.name.value,
       email: e.target.email.value,
       message: e.target.message.value,
-      captcha: recaptchaRef.current.getValue(),
+      captcha: recaptchaRef.current?.getValue(),
     };
 
-    if (Object.values(post).findIndex((value) => !value) !== -1) {
-      setDisabled(false);
-      return;
+    try {
+      const response = await fetch(`/api/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      });
+      const json = await response.json();
+      if(json.success){
+        setSuccess('Thank you, I will reply as soon as possible.');
+        e.target.reset();
+        recaptchaRef.current?.reset();
+      } else {
+        setError(json.error || 'Internal error');
+      }
+    } catch(e){
+      setError('Internal error');
     }
 
-    const response = await fetch(`/api/contact`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(post),
-    });
-    await response.json();
-
-    e.target.reset();
-    recaptchaRef.current.reset();
     setDisabled(false);
   };
 
@@ -65,6 +74,8 @@ export default function Contact({ data }) {
       <div className="bg-white dark:bg-gray-900 py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-12">
         <div className="relative max-w-xl mx-auto">
           <Dots />
+          {error ? <Alert type="error">{error}</Alert> : null}
+          {success ? <Alert>{success}</Alert> : null}
           <Title
             title="Contact"
             subtitle="Send me a message, I will reply as soon as possible."
@@ -130,11 +141,13 @@ export default function Contact({ data }) {
                 </div>
               </div>
 
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-              />
-
+              {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                />
+              ) : null}
+              
               <div className="sm:col-span-2">
                 <button
                   type="submit"

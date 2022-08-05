@@ -3,7 +3,8 @@ const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: process.env.MAIL_PORT,
-  secure: process.env.MAIL_SECURE ? true : false,
+  secure: process.env.MAIL_SECURE == 'true' ? true : false,
+  ignoreTLS: process.env.MAIL_IGNORE_TLS == 'true' ? true : false,
   auth: {
     user: process.env.MAIL_USERNAME,
     pass: process.env.MAIL_PASSWORD,
@@ -45,17 +46,29 @@ const verifyRecaptcha = async (code) => {
 export default async function handler(req, res) {
   const { body } = req;
 
-  if (!body.name || !body.email || !body.message || !body.captcha) {
-    return res.status(422).json({ error: "Fill all fields" });
+  if (!body.name || !body.email || !body.message) {
+    return res.status(422).json({ error: "Fill all fields." });
   }
 
-  const recaptcha = await verifyRecaptcha(body.captcha);
-  if (!recaptcha) {
-    return res.status(422).json({ error: "Wrong captcha" });
-  }
+  if(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY){
+    if(!body.captcha){
+      return res.status(422).json({ error: "Fill captcha." });
+    }
 
+    const recaptcha = await verifyRecaptcha(body.captcha);
+    if (!recaptcha) {
+      return res.status(422).json({ error: "Wrong captcha." });
+    }
+  }
+  
   const mail = `${body.name} <${body.email}> \n\n ${body.message}`;
-  await sendEmail(mail);
 
-  res.status(200).json({ data: "John Doe" });
+  try {
+    await sendEmail(mail);
+  } catch(e){
+    console.error(e);
+    return res.status(403).json({ error: "Problem with sending email." });
+  }
+
+  res.status(200).json({ success: true });
 }
