@@ -58,7 +58,6 @@ export default function Contact({ data }) {
       if(json.success){
         setSuccess('Thank you, I will reply as soon as possible.');
         e.target.reset();
-        recaptchaRef.current?.reset();
       } else {
         setError(json.error || 'Internal error');
       }
@@ -66,6 +65,7 @@ export default function Contact({ data }) {
       setError('Internal error');
     }
 
+    recaptchaRef.current?.reset();
     setDisabled(false);
   };
 
