@@ -1,8 +1,27 @@
 ---
+import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <Page>
   <h1 class="text-3xl font-bold">Projects</h1>
   <p>My recent public projects.</p>
+  {
+    projects.map((project) => (
+      <div class="border-2 mb-2">
+        <div>{project.data.title}</div>
+        <div>{project.body}</div>
+        <div>{project.data.url}</div>
+        <div class="flex gap-2">
+          {project.data.tags.map((tag) => (
+            <span>{tag}</span>
+          ))}
+        </div>
+      </div>
+    ))
+  }
 </Page>
