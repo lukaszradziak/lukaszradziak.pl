@@ -67,7 +67,7 @@ export default function Home({ data }) {
                     <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
                       <span className="block text-white">Łukasz Radziak</span>
                       <span className="block text-indigo-200">
-                        Fullstack devloper
+                        Fullstack developer
                       </span>
                     </h1>
                   </div>
