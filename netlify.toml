@@ -1,4 +1,4 @@
-[[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200
+[build]
+  base = "."          # change to your subfolder if needed, e.g. "frontend"
+  publish = "dist"    # or "build", whatever your build outputs
+  command = "npm run build"
