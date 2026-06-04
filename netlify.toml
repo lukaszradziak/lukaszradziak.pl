@@ -1,4 +1,9 @@
 [build]
-  base = "."          # change to your subfolder if needed, e.g. "frontend"
-  publish = "dist"    # or "build", whatever your build outputs
+  base = "."
+  publish = "dist"
   command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
