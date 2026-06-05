@@ -45,7 +45,7 @@ export default function Contact() {
       const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'contact', ...fields }),
+        body: encode({ 'form-name': 'contact', 'bot-field': '', ...fields }),
       })
       if (!res.ok) {
         setError(`Something went wrong (${res.status}). Please try again.`)
@@ -86,8 +86,11 @@ export default function Contact() {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6" name="contact" data-netlify="true">
+          <form onSubmit={handleSubmit} className="space-y-6" name="contact" data-netlify="true" data-netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="contact" />
+            <p hidden>
+              <label>Do not fill this out: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+            </p>
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
@@ -135,6 +138,11 @@ export default function Contact() {
                 onChange={handleChange}
               />
             </div>
+
+            <label className="flex items-center gap-2 text-sm select-none cursor-pointer">
+              <input type="checkbox" required className="h-4 w-4 rounded border-border accent-primary" />
+              I'm not a robot
+            </label>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button type="submit" size="lg" disabled={loading} className="w-full sm:w-auto">
