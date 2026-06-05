@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import { Mail, MapPin, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -21,18 +21,42 @@ const INFO = [
   },
 ]
 
+function encode(data: Record<string, string>) {
+  return Object.entries(data)
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+    .join('&')
+}
+
 export default function Contact() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [fields, setFields] = useState({ name: '', email: '', subject: '', message: '' })
 
-  function handleSubmit(e: { preventDefault(): void }) {
+  function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setFields(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     setLoading(true)
-    // Replace with real form handler (Netlify Forms, Resend, etc.)
-    setTimeout(() => {
+    setError(null)
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({ 'form-name': 'contact', ...fields }),
+      })
+      if (!res.ok) {
+        setError(`Something went wrong (${res.status}). Please try again.`)
+      } else {
+        setSent(true)
+      }
+    } catch {
+      setError('Could not send the message. Check your connection and try again.')
+    } finally {
       setLoading(false)
-      setSent(true)
-    }, 1000)
+    }
   }
 
   return (
@@ -62,11 +86,12 @@ export default function Contact() {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" name="contact" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact" />
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" placeholder="Jan Kowalski" aria-label="Name" required />
+                <Input id="name" name="name" placeholder="Jan Kowalski" aria-label="Name" required value={fields.name} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -77,6 +102,8 @@ export default function Contact() {
                   placeholder="jan@example.com"
                   aria-label="Email"
                   required
+                  value={fields.email}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -89,6 +116,8 @@ export default function Contact() {
                 placeholder="Project inquiry"
                 aria-label="Subject"
                 required
+                value={fields.subject}
+                onChange={handleChange}
               />
             </div>
 
@@ -102,19 +131,26 @@ export default function Contact() {
                 rows={6}
                 required
                 className="resize-none"
+                value={fields.message}
+                onChange={handleChange}
               />
             </div>
 
-            <Button type="submit" size="lg" disabled={loading} className="w-full sm:w-auto">
-              {loading ? (
-                'Sending…'
-              ) : (
-                <>
-                  Send message
-                  <Send className="ml-2 h-4 w-4" />
-                </>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button type="submit" size="lg" disabled={loading} className="w-full sm:w-auto">
+                {loading ? (
+                  'Sending…'
+                ) : (
+                  <>
+                    Send message
+                    <Send className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+              {error && (
+                <p className="text-sm text-destructive">{error}</p>
               )}
-            </Button>
+            </div>
           </form>
         )}
 

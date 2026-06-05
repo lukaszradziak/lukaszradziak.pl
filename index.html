@@ -7,6 +7,13 @@
     <title>lukaszradziak.pl</title>
   </head>
   <body>
+    <!-- Hidden form so Netlify's build bot can detect it in static HTML -->
+    <form name="contact" netlify hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
