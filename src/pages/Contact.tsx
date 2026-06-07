@@ -10,7 +10,7 @@ const INFO = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'kontakt (małpa) lukaszradziak.pl',
+    value: 'kontakt (at) lukaszradziak.pl',
     href: undefined,
   },
   {
