@@ -98,8 +98,37 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
-      <footer className="border-t border-border/40 py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} Łukasz Radziak — Built with React & shadcn/ui
+      <footer className="border-t border-border/40 py-8 text-center text-sm text-muted-foreground space-y-1">
+        <p>© {new Date().getFullYear()} Łukasz Radziak</p>
+        <p>
+          3D model:{' '}
+          <a
+            href="https://sketchfab.com/3d-models/2021-macbook-pro-14-m1-pro-m1-max-f6b0b940fb6a4286b18a674ef32af2d3"
+            target="_blank"
+            rel="noreferrer"
+            className="underline underline-offset-2 hover:text-foreground transition-colors"
+          >
+            2021 MacBook Pro 14"
+          </a>{' '}
+          by{' '}
+          <a
+            href="https://sketchfab.com/akshatmittal"
+            target="_blank"
+            rel="noreferrer"
+            className="underline underline-offset-2 hover:text-foreground transition-colors"
+          >
+            akshatmittal
+          </a>{' '}
+          /{' '}
+          <a
+            href="http://creativecommons.org/licenses/by/4.0/"
+            target="_blank"
+            rel="noreferrer"
+            className="underline underline-offset-2 hover:text-foreground transition-colors"
+          >
+            CC-BY-4.0
+          </a>
+        </p>
       </footer>
     </div>
   )

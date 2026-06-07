@@ -1,8 +1,12 @@
+import { lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ExternalLink, Globe, Mail, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
+import { Skeleton } from '@/components/ui/skeleton'
+
+const MacbookViewer = lazy(() => import('../components/MacbookViewer'))
 
 const SKILLS = [
   'TypeScript', 'React', 'Node.js', 'Next.js',
@@ -19,8 +23,9 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-5xl px-6">
       {/* Hero */}
-      <section className="flex min-h-[calc(100vh-73px)] flex-col justify-center py-24">
-        <div className="max-w-2xl">
+      <section className="flex flex-col lg:flex-row lg:min-h-[calc(100vh-73px)] lg:items-center gap-8 py-12 lg:py-16">
+        {/* Text */}
+        <div className="flex-1 min-w-0">
           <div className="mb-6 flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-primary" />
             <span className="text-sm font-medium text-muted-foreground">
@@ -67,6 +72,23 @@ export default function Home() {
                 <Icon className="h-5 w-5" />
               </a>
             ))}
+          </div>
+        </div>
+
+        {/* 3D MacBook */}
+        <div className="w-full lg:w-110 lg:shrink-0">
+          <div className="h-72 lg:h-105 rounded-xl overflow-hidden">
+            <Suspense
+              fallback={
+                <div className="h-full w-full flex flex-col items-center justify-center gap-3 px-12">
+                  <Skeleton className="h-2.5 w-3/4 rounded-full" />
+                  <Skeleton className="h-2.5 w-1/2 rounded-full" />
+                  <Skeleton className="h-2.5 w-2/3 rounded-full" />
+                </div>
+              }
+            >
+              <MacbookViewer />
+            </Suspense>
           </div>
         </div>
       </section>
