@@ -10,13 +10,13 @@ const INFO = [
   {
     icon: Mail,
     label: 'Email',
-    value: '-',
-    href: '-',
+    value: 'kontakt (małpa) lukaszradziak.pl',
+    href: undefined,
   },
   {
     icon: MapPin,
     label: 'Location',
-    value: 'Poland, Remote',
+    value: 'Warszawa, Polska',
     href: undefined,
   },
 ]
@@ -186,15 +186,6 @@ export default function Contact() {
               </CardContent>
             </Card>
           ))}
-
-          <Card className="border-dashed">
-            <CardContent className="p-5">
-              <p className="text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Response time:</span>{' '}
-                Usually within 24 hours on business days.
-              </p>
-            </CardContent>
-          </Card>
         </aside>
       </div>
     </main>
