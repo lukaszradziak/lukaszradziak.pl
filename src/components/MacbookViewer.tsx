@@ -279,6 +279,12 @@ export default function MacbookViewer() {
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 65% 55% at 50% 52%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 50%, transparent 85%)',
+        }}
+      />
       {!modelReady && (
         <div className="absolute inset-0 z-10">
           <LoadingSkeleton />
