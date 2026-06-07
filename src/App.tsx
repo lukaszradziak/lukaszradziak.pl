@@ -85,6 +85,7 @@ export default function App() {
   const [dark, setDark] = useState(() =>
     window.matchMedia('(prefers-color-scheme: dark)').matches
   )
+  const { pathname } = useLocation()
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
@@ -100,7 +101,7 @@ export default function App() {
       </Routes>
       <footer className="border-t border-border/40 py-8 text-center text-sm text-muted-foreground space-y-1">
         <p>© {new Date().getFullYear()} Łukasz Radziak</p>
-        <p>
+        {pathname === '/' && <p className="text-xs text-gray-400">
           3D model:{' '}
           <a
             href="https://sketchfab.com/3d-models/2021-macbook-pro-14-m1-pro-m1-max-f6b0b940fb6a4286b18a674ef32af2d3"
@@ -128,7 +129,7 @@ export default function App() {
           >
             CC-BY-4.0
           </a>
-        </p>
+        </p>}
       </footer>
     </div>
   )
