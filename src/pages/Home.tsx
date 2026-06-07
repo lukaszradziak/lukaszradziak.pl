@@ -5,13 +5,11 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
+import { PROJECTS } from '../data/projects'
 
 const MacbookViewer = lazy(() => import('../components/MacbookViewer'))
 
-const SKILLS = [
-  'TypeScript', 'React', 'Node.js', 'Next.js',
-  'PostgreSQL', 'Docker', 'Tailwind CSS', 'REST APIs',
-]
+const SKILLS = [...new Set(PROJECTS.flatMap((p) => p.tags))]
 
 const SOCIALS = [
   { icon: ExternalLink, label: 'GitHub', href: 'https://github.com/lukaszradziak' },

@@ -1,69 +1,8 @@
-import { ArrowUpRight, Clock } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-
-interface Project {
-  slug: string
-  title: string
-  description: string
-  date: string
-  readTime: string
-  tags: string[]
-  link?: string
-  featured?: boolean
-}
-
-const PROJECTS: Project[] = [
-  {
-    slug: 'saas-dashboard',
-    title: 'SaaS Analytics Dashboard',
-    description:
-      'A real-time analytics dashboard for a SaaS product with 10k+ users. Built with Next.js, Recharts, and WebSockets. Reduced data load time by 60% through server-side aggregation.',
-    date: '2025-11-10',
-    readTime: '5 min read',
-    tags: ['Next.js', 'TypeScript', 'WebSockets', 'PostgreSQL'],
-    link: 'https://github.com/lukaszradziak',
-    featured: true,
-  },
-  {
-    slug: 'api-gateway',
-    title: 'Lightweight API Gateway',
-    description:
-      'Open-source API gateway written in Node.js supporting rate limiting, JWT auth, and request proxying. Used in production by 3 small businesses.',
-    date: '2025-08-22',
-    readTime: '4 min read',
-    tags: ['Node.js', 'Docker', 'Redis', 'REST'],
-    link: 'https://github.com/lukaszradziak',
-  },
-  {
-    slug: 'ai-chat-widget',
-    title: 'Embeddable AI Chat Widget',
-    description:
-      'Drop-in React widget that integrates with any LLM API. Configurable themes, conversation history, and streaming support. Under 8 kB gzipped.',
-    date: '2025-05-14',
-    readTime: '3 min read',
-    tags: ['React', 'TypeScript', 'AI', 'Streaming'],
-    link: 'https://github.com/lukaszradziak',
-  },
-  {
-    slug: 'e-commerce-platform',
-    title: 'Headless E-commerce Platform',
-    description:
-      'Full e-commerce solution with a headless architecture — separate storefront (Astro) and admin (React). Integrated with Stripe and a custom inventory system.',
-    date: '2025-02-03',
-    readTime: '7 min read',
-    tags: ['Astro', 'React', 'Stripe', 'Node.js'],
-  },
-]
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
+import { PROJECTS } from '../data/projects'
 
 export default function Projects() {
   const featured = PROJECTS.filter((p) => p.featured)
@@ -106,12 +45,6 @@ export default function Projects() {
                   </a>
                 )}
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span>{formatDate(project.date)}</span>
-                <span>·</span>
-                <Clock className="h-3 w-3" />
-                <span>{project.readTime}</span>
-              </div>
             </CardHeader>
             <CardContent>
               <p className="leading-relaxed text-muted-foreground">{project.description}</p>
@@ -152,12 +85,6 @@ export default function Projects() {
                     <ArrowUpRight className="h-4 w-4" />
                   </a>
                 )}
-              </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span>{formatDate(project.date)}</span>
-                <span>·</span>
-                <Clock className="h-3 w-3" />
-                <span>{project.readTime}</span>
               </div>
             </CardHeader>
             <CardContent className="flex-1">
